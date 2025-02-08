@@ -12,7 +12,7 @@ export const CaseBack = ({
 }: CaseBackInterface) => {
   return (
     <div className="w-full h-full " onClick={onClick}>
-      <div className="w-full h-full flex flex-col bg-orange-50 border-4 border-slate-300/25 rounded-sm">
+      <div className="w-full h-full flex flex-col bg-orange-50 border-4 border-slate-300/25 rounded-xs">
         <div className="w-full bg-orange-200">
           <div className="flex">
             <span className="w-full font-bold font-shadow  text-blue-800 text-sm md:text-lg  p-4 pb-0">
@@ -23,12 +23,10 @@ export const CaseBack = ({
         </div>
         <div className="w-full h-full flex flex-wrap text-sm md:text-xl p-4 font-shadow  text-blue-800 overflow-y-auto">
           {tracks.map((track) => (
-            <>
-              <p key={track.id} className="m-0">
-                {track.name}
-              </p>
-              <span className="px-2 last-of-type:hidden">*</span>
-            </>
+            <p key={track.id} className="m-0 group">
+              {track.name}
+              <span className="px-2 group-last-of-type:hidden">*</span>
+            </p>
           ))}
         </div>
       </div>

@@ -26,6 +26,7 @@ export async function submitPlaylist(formData: FormData) {
         from: data.from,
         message: data.message,
         playlist_id: playlistId,
+        name: data.name,
       },
     ])
     .select();
@@ -60,15 +61,17 @@ export async function getMixtape(
   });
 
   const tokenData = await tokenRes.json();
-  if (!tokenData.access_token) return null;
+  if (!tokenData.access_token) {
+    console.log(tokenData);
+    return null;
+  }
 
   const res = await fetch(`${process.env.SPOTIFY_API_URL}${data.playlist_id}`, {
     headers: { Authorization: `Bearer ${tokenData.access_token}` },
   });
   const response = await res.json();
+  console.log("RESPONSE", response);
   if (!response.tracks) return null;
-
-  console.log(response);
 
   return {
     id: data.id,
