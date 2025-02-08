@@ -29,7 +29,6 @@ export const Mixtape = ({ ...mixtape }: MixtapeType) => {
   };
 
   const handleAnimationEnd = () => {
-    // When flipBack completes, we can set flip to true (if needed) or handle further transitions.
     if (!open && viewSongs) {
       setFlip(true);
     }
@@ -43,10 +42,10 @@ export const Mixtape = ({ ...mixtape }: MixtapeType) => {
       >
         <div
           className={`absolute w-full h-full transition-all duration-500 ${
-            open ? "animate-backToFront" : "animate-frontToBack"
-          }`}
+            open ? "animate-back-to-front" : "animate-front-to-back"
+          } ${flip || flipBack ? "hidden" : "absolute"}`}
         >
-          <Cassette {...mixtape} onClick={() => setOpen(!open)} />
+          <Cassette {...mixtape} />
         </div>
         <div
           className="relative w-full h-full"
@@ -57,12 +56,12 @@ export const Mixtape = ({ ...mixtape }: MixtapeType) => {
           <div
             className={`absolute w-full ease duration-700 ${
               open
-                ? "animate-swap" // If flipping back, apply flipBack animation.
+                ? "animate-swap"
                 : flip
-                ? "animate-flipBack"
+                ? "animate-flip-back"
                 : flipBack
                 ? "animate-flip"
-                : "animate-swapBack" // If not open and not flipping, apply swapBack.
+                : "animate-swap-back"
             }`}
             onAnimationEnd={handleAnimationEnd}
             style={{
@@ -80,7 +79,7 @@ export const Mixtape = ({ ...mixtape }: MixtapeType) => {
           <div
             className={`absolute w-full h-full -rotate-y-180 ${
               flip ? "animate-flip" : ""
-            } ${flipBack ? "animate-flipBack" : ""}`}
+            } ${flipBack ? "animate-flip-back" : ""}`}
             style={{
               backfaceVisibility: "hidden",
             }}
@@ -90,10 +89,10 @@ export const Mixtape = ({ ...mixtape }: MixtapeType) => {
         </div>
         <p
           role="button"
-          className="mt-14 w-fit text-right ml-auto text-xs md:text-sm uppercase text-gray-700/70 hover:text-gray-700/100 transition-colors"
+          className="mt-10 font-bold hover:cursor-pointer w-fit text-right ml-auto text-xs md:text-sm uppercase text-gray-700/70 hover:text-gray-700/100 transition-colors"
           onClick={viewSongs ? handleSeeCover : handleSeeSongs}
         >
-          {viewSongs ? "see cover" : "see songs"}
+          {viewSongs ? "see cover" : "see tracklist"} ⤴︎
         </p>
       </div>
     </div>
