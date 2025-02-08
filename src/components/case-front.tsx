@@ -13,7 +13,7 @@ export const CaseFront = ({
 }: CaseFrontInterface) => {
   return (
     <div
-      className="w-full group hover:cursor-pointer md:hover:scale-105 transition-all"
+      className="w-full h-full group hover:cursor-pointer md:hover:scale-105 transition-all"
       onClick={onClick}
     >
       <div className="aspect-video flex flex-col bg-orange-50 border-4 border-slate-300/25 rounded-xs">

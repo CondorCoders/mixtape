@@ -3,6 +3,7 @@
 import { createClient } from "@/app/supabase/server";
 import { redirect } from "next/navigation";
 import { MixtapeType } from "./mixtape/[id]/page";
+import { nanoid } from "nanoid";
 
 export async function submitPlaylist(formData: FormData) {
   const supabase = await createClient();
@@ -16,7 +17,13 @@ export async function submitPlaylist(formData: FormData) {
   };
   const playlistId = data.playlistUrl.split("/playlist/")[1]?.split("?")[0];
 
+  // TODO: Error handling
+  // https://github.com/vercel/next.js/blob/canary/examples/with-supabase/app/actions.ts#L15
   if (!playlistId) return redirect("/error");
+
+  // TODO: Confirmar que podems acceder al playlist y que no es privado
+
+  const slug = nanoid(10); // Genera id unico para usar en la url
 
   const { data: savedData, error } = await supabase
     .from("mixtapes")
@@ -27,6 +34,7 @@ export async function submitPlaylist(formData: FormData) {
         message: data.message,
         playlist_id: playlistId,
         name: data.name,
+        slug,
       },
     ])
     .select();
@@ -35,20 +43,19 @@ export async function submitPlaylist(formData: FormData) {
   redirect(`/mixtape/${savedData[0].id}`);
 }
 
-export async function getMixtape(
-  mixtapeId: string
-): Promise<MixtapeType | null> {
+export async function getMixtape(slug: string): Promise<MixtapeType | null> {
   const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("mixtapes")
     .select("*")
-    .eq("id", mixtapeId)
+    .eq("slug", slug)
     .single();
 
   if (error) return null;
 
-  // Request an access token using Client Credentials Flow
+  // Usamos nuestras credenciales de spotify para conseguir un token
+  // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
   const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -70,7 +77,6 @@ export async function getMixtape(
     headers: { Authorization: `Bearer ${tokenData.access_token}` },
   });
   const response = await res.json();
-  console.log("RESPONSE", response);
   if (!response.tracks) return null;
 
   return {

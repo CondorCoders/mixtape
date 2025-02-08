@@ -37,7 +37,7 @@ export const Mixtape = ({ ...mixtape }: MixtapeType) => {
   return (
     <div className="w-full p-4 flex flex-col items-center justify-center">
       <div
-        className="relative aspect-video w-full sm:w-2/3 md:w-2/4 lg:w-2/5 xl:w-1/2"
+        className="relative aspect-video w-full sm:w-2/3 md:w-2/4 lg:w-2/5 xl:w-1/2 2xl:w-2/5"
         style={{ perspective: "1200px" }}
       >
         <div

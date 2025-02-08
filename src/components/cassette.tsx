@@ -1,5 +1,6 @@
 import { MixtapeType } from "@/app/mixtape/[id]/page";
 import Link from "next/link";
+import Spotify from "./icons/spotify";
 
 export const Cassette = ({ name, playlistName, spotifyUrl }: MixtapeType) => {
   return (
@@ -15,11 +16,9 @@ export const Cassette = ({ name, playlistName, spotifyUrl }: MixtapeType) => {
       </Link>
 
       <div className="rounded-2xl w-full bg-orange-50 flex flex-col">
-        <div className="w-full flex items-center gap-4 p-2 xl:p-4">
-          <span className="bg-slate-600 size-8 rounded-xl flex items-center text-orange-50 justify-center font-bold">
-            A
-          </span>
-          <p className="font-shadow my-0 text-xl xl:text-2xl text-blue-800">
+        <div className="w-full flex items-center gap-2 md:gap-4 p-2 xl:p-4">
+          <Spotify className="size-4 md:size-8" />
+          <p className="font-shadow my-0 text-base lg:text-xl xl:text-2xl text-blue-800">
             {name || playlistName}
           </p>
         </div>
