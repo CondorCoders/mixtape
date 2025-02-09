@@ -1,6 +1,6 @@
 import { MixtapeType } from "@/app/mixtape/[id]/page";
 
-interface CaseFrontInterface extends MixtapeType {
+interface CaseFrontInterface extends Partial<MixtapeType> {
   onClick?: () => void;
   open?: boolean;
 }

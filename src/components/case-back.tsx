@@ -1,6 +1,6 @@
 import { MixtapeType } from "@/app/mixtape/[id]/page";
 
-interface CaseBackInterface extends MixtapeType {
+interface CaseBackInterface extends Partial<MixtapeType> {
   onClick?: () => void;
 }
 
@@ -24,7 +24,7 @@ export const CaseBack = ({
         <span className="w-full h-[3px] bg-stone-600 block mb-4" />
       </div>
       <div className="w-full h-full flex flex-wrap text-sm md:text-xl p-4 font-shadow  text-blue-800 overflow-y-auto">
-        {tracks.map((track) => (
+        {tracks?.map((track) => (
           <p key={track.id} className="m-0 group">
             {track.name}
             <span className="px-2 group-last-of-type:hidden">*</span>

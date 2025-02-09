@@ -2,7 +2,17 @@ import { MixtapeType } from "@/app/mixtape/[id]/page";
 import Link from "next/link";
 import Spotify from "./icons/spotify";
 
-export const Cassette = ({ name, playlistName, spotifyUrl }: MixtapeType) => {
+interface CassetteProps extends Partial<MixtapeType> {
+  linkText?: string;
+}
+
+export const Cassette = ({
+  name,
+  playlistName,
+  spotifyUrl,
+  linkText,
+}: CassetteProps) => {
+  if (!spotifyUrl) return null;
   return (
     <div className="relative transition-transform group hover:scale-105 w-full p-4 xl:p-8 h-full bg-gray-200 rounded-2xl">
       <Link
@@ -11,7 +21,7 @@ export const Cassette = ({ name, playlistName, spotifyUrl }: MixtapeType) => {
         className="absolute inset-0 w-full pb-1 h-full flex items-end justify-center"
       >
         <span className="font-bold text-xs xl:text-sm text-green-600 uppercase  group-hover:text-green-700 px-4 py-2">
-          Listen in Spotify ↗
+          {linkText || "Listen in Spotify"} ↗
         </span>
       </Link>
 

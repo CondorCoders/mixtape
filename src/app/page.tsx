@@ -1,21 +1,19 @@
-import { submitPlaylist } from "./actions";
+import { MixtapeForm } from "@/components/mixtape-form";
 
 export default async function Home() {
   return (
-    <main>
-      <form>
-        <label htmlFor="playlistUrl">playlistUrl:</label>
-        <input id="playlistUrl" name="playlistUrl" type="text" required />
-        <label htmlFor="name">Mixtape Name:</label>
-        <input id="name" name="name" type="text" required />
-        <label htmlFor="to">to:</label>
-        <input id="to" name="to" type="text" />
-        <label htmlFor="from">from:</label>
-        <input id="from" name="from" type="text" />
-        <label htmlFor="message">message:</label>
-        <textarea id="message" name="message" />
-        <button formAction={submitPlaylist}>Crear Mixtape</button>
-      </form>
+    <main className="w-full h-full flex-1 flex flex-col">
+      <div className="text-center p-4">
+        <h1 className="text-4xl font-bold font-shadow">🎧 Mixtape 🎶</h1>
+        <p className="py-4 text-base">
+          Turn your Spotify playlist into a mixtape and share it with someone
+          who&apos;ll love it!
+        </p>
+      </div>
+
+      <div className="max-w-5xl w-full mx-auto h-full flex-1 flex md:items-center md:justify-center">
+        <MixtapeForm />
+      </div>
     </main>
   );
 }
