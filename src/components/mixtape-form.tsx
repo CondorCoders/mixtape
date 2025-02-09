@@ -46,7 +46,9 @@ export const MixtapeForm = () => {
     if (!formData.spotifyUrl) return null;
     setLoading(true);
 
-    const res = await fetch(`/api/spotify?id=${formData.spotifyUrl}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/spotify?id=${formData.spotifyUrl}`
+    );
     const playlist = await res.json();
 
     if (playlist?.message) {
