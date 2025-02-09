@@ -23,7 +23,7 @@ export const CaseFront = ({
           {from || to ? (
             <div className="w-full flex">
               {from && (
-                <span className="w-1/2 font-bold text-sm md:text-lg font-mono p-4 pb-0">
+                <span className="w-1/2 overflow-hidden truncate font-bold text-sm md:text-lg font-mono p-4 pb-0">
                   <>
                     From:
                     <span className="font-shadow text-sm md:text-2xl pl-4 text-blue-800">
@@ -33,7 +33,7 @@ export const CaseFront = ({
                 </span>
               )}
               {to && (
-                <span className="w-1/2 font-bold text-sm md:text-lg font-mono p-4 pb-0">
+                <span className="w-1/2 overflow-hidden truncate font-bold text-sm md:text-lg font-mono p-4 pb-0">
                   <>
                     To:
                     <span className="font-shadow pl-4 text-sm md:text-2xl text-blue-800">
@@ -44,7 +44,7 @@ export const CaseFront = ({
               )}
             </div>
           ) : (
-            <p className="font-shadow p-4 pb-0 text-sm md:text-2xl text-blue-800">
+            <p className="w-full overflow-hidden truncate font-shadow p-4 pb-0 text-sm md:text-2xl text-blue-800">
               {name || playlistName}
             </p>
           )}

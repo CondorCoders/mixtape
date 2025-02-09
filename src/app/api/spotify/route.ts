@@ -6,13 +6,20 @@ export async function GET(req: Request) {
 
   let playlistId;
 
-  if (playlistUrl?.includes("/playlist/")) {
+  if (playlistUrl?.includes("/playlist/") && playlistUrl?.includes("spotify")) {
     const spotifyId = playlistUrl.split("/playlist/")[1]?.split("?")[0];
     playlistId = spotifyId;
   }
 
   if (!playlistId) {
-    return NextResponse.json({ error: "Missing playlist ID" }, { status: 400 });
+    return NextResponse.json(
+      {
+        type: "error",
+        message:
+          "Invalid Spotify URL. We currently only support public Spotify playlists. Albums or individual songs are not supported. Please check if the playlist exists and is accessible.",
+      },
+      { status: 400 }
+    );
   }
 
   const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
@@ -27,7 +34,14 @@ export async function GET(req: Request) {
   });
 
   if (!tokenRes.ok) {
-    return NextResponse.json({ error: "Failed to get token" }, { status: 500 });
+    return NextResponse.json(
+      {
+        type: "error",
+        error:
+          "We're having trouble connecting to Spotify right now. Please try again later.",
+      },
+      { status: 500 }
+    );
   }
 
   const tokenData = await tokenRes.json();
@@ -38,7 +52,10 @@ export async function GET(req: Request) {
   const playlist = await res.json();
 
   if (playlist.error) {
-    return NextResponse.json({ error: "Playlist not found" }, { status: 404 });
+    return NextResponse.json(
+      { type: "error", error: "Playlist not found" },
+      { status: 404 }
+    );
   }
 
   return NextResponse.json({

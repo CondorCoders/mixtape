@@ -17,7 +17,7 @@ export const CaseBack = ({
     >
       <div className="w-full bg-orange-200">
         <div className="flex">
-          <span className="w-full font-bold font-shadow  text-blue-800 text-sm md:text-lg  p-4 pb-0">
+          <span className="w-full overflow-hidden truncate font-bold font-shadow  text-blue-800 text-sm md:text-lg  p-4 pb-0">
             {name || playlistName}
           </span>
         </div>

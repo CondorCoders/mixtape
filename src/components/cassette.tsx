@@ -28,7 +28,7 @@ export const Cassette = ({
       <div className="rounded-2xl w-full bg-orange-50 flex flex-col">
         <div className="w-full flex items-center gap-2 md:gap-4 p-2 xl:p-4">
           <Spotify className="size-4 md:size-8" />
-          <p className="font-shadow my-0 text-base lg:text-xl xl:text-2xl text-blue-800">
+          <p className="w-full overflow-hidden truncate font-shadow my-0 text-base lg:text-xl xl:text-2xl text-blue-800">
             {name || playlistName}
           </p>
         </div>

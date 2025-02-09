@@ -64,8 +64,8 @@ export const MixtapeForm = () => {
         name: playlist.playlistName,
         playlistName: playlist.playlistName,
       }));
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   if (state?.type === "success" && state?.message) {
@@ -176,7 +176,9 @@ export const MixtapeForm = () => {
           </p>
         </div>
 
-        {errors && <div className="w-full p-2 bg-red-200">{errors}</div>}
+        {errors && (
+          <div className="w-full rounded-xl p-2 bg-red-200">{errors}</div>
+        )}
         <div className="flex justify-between mt-auto">
           {step > 1 && (
             <Button type="button" onClick={() => setStep((prev) => prev - 1)}>
