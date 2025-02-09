@@ -18,7 +18,7 @@ export const Cassette = ({
       <Link
         target="_blank"
         href={spotifyUrl}
-        className="absolute inset-0 w-full pb-1 h-full flex items-end justify-center"
+        className="absolute inset-0 w-full h-full flex items-end justify-center"
       >
         <span className="font-bold text-xs xl:text-sm text-green-600 uppercase  group-hover:text-green-700 px-4 py-2">
           {linkText || "Listen in Spotify"} ↗
@@ -38,7 +38,7 @@ export const Cassette = ({
           <span className="size-7 sm:size-10 xl:size-16 bg-white rounded-full" />
           <span className="size-7 sm:size-10 xl:size-16 bg-white rounded-full" />
         </div>
-        <div className="w-2/3 mx-auto bg-gray-300 h-8 sm:h-12 xl:h-14 -mb-4 sm:-mb-7 rounded-xl"></div>
+        <div className="w-2/3 mx-auto bg-gray-300 h-6 sm:h-8 md:h-12 xl:h-14 -mb-2 sm:-mb-4 md:-mb-7 rounded-xl"></div>
       </div>
     </div>
   );
