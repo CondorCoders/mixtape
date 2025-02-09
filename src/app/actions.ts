@@ -31,6 +31,13 @@ export async function getSpotifyPlaylist(
     body: "grant_type=client_credentials",
   });
 
+  if (!tokenRes.ok) {
+    return {
+      type: "error",
+      message: "Error while retrieving playlist.",
+    };
+  }
+
   const tokenData = await tokenRes.json();
   if (!tokenData.access_token) {
     return {

@@ -1,6 +1,6 @@
 "use client";
 
-import { getSpotifyPlaylist, submitPlaylist } from "@/app/actions";
+import { submitPlaylist } from "@/app/actions";
 import { Label } from "./label";
 import { TextAreaInput } from "./text-area-input";
 import { TextInput } from "./text-input";
@@ -20,6 +20,7 @@ export const MixtapeForm = () => {
   const [tracks, setTracks] = useState<TrackType[] | undefined>([
     { id: "1", name: "Song 1", artists: [] },
   ]);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState<Partial<MixtapeType>>({
     name: "",
@@ -43,12 +44,15 @@ export const MixtapeForm = () => {
 
   const handlePlaylistVerification = async () => {
     if (!formData.spotifyUrl) return null;
+    setLoading(true);
 
-    const playlist = await getSpotifyPlaylist(formData.spotifyUrl);
+    const res = await fetch(`/api/spotify?id=${formData.spotifyUrl}`);
+    const playlist = await res.json();
 
     if (playlist?.message) {
       setErrors(playlist?.message);
       setValidPlaylist(false);
+      setLoading(false);
     } else if ("playlistName" in playlist && "tracks" in playlist) {
       setErrors(null);
       setValidPlaylist(true);
@@ -58,6 +62,7 @@ export const MixtapeForm = () => {
         name: playlist.playlistName,
         playlistName: playlist.playlistName,
       }));
+      setLoading(false);
     }
   };
 
@@ -94,6 +99,7 @@ export const MixtapeForm = () => {
               id="spotifyUrl"
               name="spotifyUrl"
               type="text"
+              placeholder="https://open.spotify.com/playlist/123"
               value={formData.spotifyUrl}
               onChange={handleOnChange}
               required
@@ -102,10 +108,10 @@ export const MixtapeForm = () => {
 
           <Button
             type="button"
-            disabled={!formData.spotifyUrl}
+            disabled={!formData.spotifyUrl || loading}
             onClick={handlePlaylistVerification}
           >
-            Get Playlist
+            {loading ? "Loading..." : "Get Playlist"}
           </Button>
         </div>
 
