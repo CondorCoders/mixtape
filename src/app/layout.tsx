@@ -1,6 +1,7 @@
 import Link from "next/link";
 import "./globals.css";
 import { Shadows_Into_Light } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 const shadowIntoLight = Shadows_Into_Light({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
           <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"></div>
         </div>
         {children}
+        <Analytics />
         <footer className="w-full text-center text-sm">
           Made with ❤️ by{" "}
           <Link
