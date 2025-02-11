@@ -1,7 +1,7 @@
 import Link from "next/link";
 import "./globals.css";
 import { Shadows_Into_Light } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 
 const shadowIntoLight = Shadows_Into_Light({
   subsets: ["latin"],
