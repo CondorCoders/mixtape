@@ -1,5 +1,6 @@
 import { getMixtape } from "@/app/actions";
 import { Mixtape } from "@/components/mixtape";
+import PageTitle from "@/components/page-title";
 import { notFound } from "next/navigation";
 
 export interface TrackType {
@@ -34,7 +35,8 @@ export default async function MixtapePage(props:{params: Promise<{ id:string }>}
 
   return (
     <div className="w-full flex-1 overflow-hidden relative flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold font-shadow mb-10">🎧 Mixtape 🎶</h1>
+     {/*  <h1 className="text-4xl font-bold font-shadow mb-10">🎧 Mixtape 🎶</h1> */}
+      <PageTitle className="mb-10" url="/" value="🎧 Mixtape 🎶" />
       <Mixtape {...mixtape} />
     </div>
   );
