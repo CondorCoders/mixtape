@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { DetailedHTMLProps, HTMLAttributes, useState } from "react";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 interface TitleProps
   extends DetailedHTMLProps<
