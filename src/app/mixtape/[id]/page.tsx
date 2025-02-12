@@ -18,12 +18,9 @@ export interface MixtapeType {
   tracks: TrackType[];
 }
 
-export default async function MixtapePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const mixtapeId = (await params).id;
+export default async function MixtapePage(props:{params: Promise<{ id:string }>}) {
+  const params = await props.params
+  const mixtapeId = params.id
   const mixtape = await getMixtape(mixtapeId);
 
   if (!mixtape) {
