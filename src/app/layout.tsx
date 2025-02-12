@@ -2,6 +2,7 @@ import Link from "next/link";
 import "./globals.css";
 import { Shadows_Into_Light } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { Metadata } from "next";
 
 const shadowIntoLight = Shadows_Into_Light({
   subsets: ["latin"],
@@ -10,6 +11,26 @@ const shadowIntoLight = Shadows_Into_Light({
   variable: "--font-shadow",
 });
 
+export const metadata: Metadata = {
+  title: "🎧 Mixtape 🎶",
+
+  openGraph: {
+    title: "🎧 Mixtape 🎶",
+    description: "Crea Mixtapes para el Día del Amor y la Amistad",
+    url: "https://mixtape-eight.vercel.app/",
+    siteName: "CondorCoders",
+    images: [
+      {
+        url: "./preview.gif",
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -17,6 +38,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content="Generar Mixtapes para tus relaciones interpersonales este Día de San Valentin"
+        ></meta>
+
+        <title>🎧 Mixtape 🎶</title>
+        <meta />
+      </head>
       <body
         className={`${shadowIntoLight.variable} relative min-h-dvh flex flex-col p-4`}
       >
