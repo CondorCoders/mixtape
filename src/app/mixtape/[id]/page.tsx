@@ -1,5 +1,6 @@
 import { getMixtape } from "@/app/actions";
 import { Mixtape } from "@/components/mixtape";
+import { notFound } from "next/navigation";
 
 export interface TrackType {
   id: string;
