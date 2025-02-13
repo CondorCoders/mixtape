@@ -1,5 +1,6 @@
 import { getMixtape } from "@/app/actions";
 import { Mixtape } from "@/components/mixtape";
+import { Metadata } from "next";
 
 export interface TrackType {
   id: string;
@@ -17,6 +18,24 @@ export interface MixtapeType {
   spotifyUrl: string;
   tracks: TrackType[];
 }
+
+export const metadata: Metadata = {
+  title: "A Mixtape Just for You 🎶",
+  description:
+    "Someone made a special mixtape just for you! Open it to discover a handpicked selection of songs curated with you in mind.",
+  openGraph: {
+    title: "A Mixtape Just for You 🎶",
+    description:
+      "Someone made a special mixtape just for you! Click to listen to your personalized selection of songs.",
+    type: "music.playlist",
+    images: [
+      {
+        url: "/Mixtape_OG.png",
+        alt: "A mixtape",
+      },
+    ],
+  },
+};
 
 export default async function MixtapePage({
   params,
