@@ -11,8 +11,19 @@ import { MixtapeType, TrackType } from "@/app/mixtape/[id]/page";
 import { CaseFront } from "./case-front";
 import { Cassette } from "./cassette";
 import { MixtapeSuccessMessage } from "./mixtape-success-message";
+import {
+  BackgroundOptions,
+  useBackground,
+} from "@/app/context/background-context";
+
+const backgrounds = [
+  { value: BackgroundOptions.RETRO, color: "bg-blue-400" },
+  { value: BackgroundOptions.PINK, color: "bg-pink-400" },
+  { value: BackgroundOptions.PURPLE, color: "bg-purple-400" },
+];
 
 export const MixtapeForm = () => {
+  const { background, setBackground } = useBackground();
   const [step, setStep] = useState<number>(1);
   const [state, formAction] = useActionState(submitPlaylist, {});
   const [errors, setErrors] = useState<string | null>();
@@ -29,10 +40,21 @@ export const MixtapeForm = () => {
     to: "",
     from: "",
     message: "",
+    background: BackgroundOptions.RETRO,
   });
 
+  console.log("Current form data:", formData);
+
+  const handleThemeChange = (bg: BackgroundOptions) => {
+    setFormData((prev) => ({
+      ...prev,
+      background: bg,
+    }));
+    setBackground(bg);
+  };
+
   const handleOnChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { value, name } = event.target;
     setErrors(null);
@@ -47,7 +69,7 @@ export const MixtapeForm = () => {
     setLoading(true);
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/spotify?id=${formData.spotifyUrl}`
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/spotify?id=${formData.spotifyUrl}`,
     );
     const playlist = await res.json();
 
@@ -115,6 +137,23 @@ export const MixtapeForm = () => {
           >
             {loading ? "Loading..." : "Get Playlist"}
           </Button>
+
+          <h3>Choose a background</h3>
+          <div className="flex gap-2">
+            <input
+              type="hidden"
+              name="background"
+              value={formData.background}
+            />
+            {backgrounds.map((bg) => (
+              <button
+                key={bg.value}
+                type="button"
+                className={`${bg.color} aspect-square w-8 rounded-md ${background === bg.value ? "ring-2 ring-offset-1 ring-black" : ""}`}
+                onClick={() => handleThemeChange(bg.value)}
+              />
+            ))}
+          </div>
         </div>
 
         {/* STEP 2 */}

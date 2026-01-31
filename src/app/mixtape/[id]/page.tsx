@@ -1,4 +1,9 @@
 import { getMixtape } from "@/app/actions";
+import {
+  BackgroundOptions,
+  BackgroundProvider,
+} from "@/app/context/background-context";
+import { Background } from "@/components/background";
 import { Mixtape } from "@/components/mixtape";
 import { Metadata } from "next";
 
@@ -17,6 +22,7 @@ export interface MixtapeType {
   message?: string;
   spotifyUrl: string;
   tracks: TrackType[];
+  background?: BackgroundOptions;
 }
 
 export const metadata: Metadata = {
@@ -54,9 +60,12 @@ export default async function MixtapePage({
   }
 
   return (
-    <div className="w-full flex-1 overflow-hidden relative flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold font-shadow mb-10">🎧 Mixtape 🎶</h1>
-      <Mixtape {...mixtape} />
-    </div>
+    <BackgroundProvider backgroundDefault={mixtape.background}>
+      <Background />
+      <div className="w-full flex-1 overflow-hidden relative flex flex-col items-center justify-center">
+        <h1 className="text-4xl font-bold font-shadow mb-10">🎧 Mixtape 🎶</h1>
+        <Mixtape {...mixtape} />
+      </div>
+    </BackgroundProvider>
   );
 }

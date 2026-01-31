@@ -10,7 +10,7 @@ export type State = {
 };
 
 export async function getSpotifyPlaylist(
-  playlistId: string
+  playlistId: string,
 ): Promise<Partial<MixtapeType> | State> {
   let id = playlistId;
 
@@ -25,7 +25,7 @@ export async function getSpotifyPlaylist(
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization: `Basic ${Buffer.from(
-        `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+        `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`,
       ).toString("base64")}`,
     },
     body: "grant_type=client_credentials",
@@ -77,16 +77,18 @@ export async function getSpotifyPlaylist(
           id: artist.id,
           name: artist.name,
         })),
-      })
+      }),
     ),
   };
 }
 
 export async function submitPlaylist(
   prevState: State,
-  formData: FormData
+  formData: FormData,
 ): Promise<State> {
   const supabase = await createClient();
+
+  console.log(formData);
 
   const data = {
     name: formData.get("name") as string,
@@ -94,7 +96,10 @@ export async function submitPlaylist(
     to: formData.get("to") as string,
     from: formData.get("from") as string,
     message: formData.get("message") as string,
+    background: formData.get("background") as string,
   };
+
+  console.log("Form Data:", data);
   const playlistId = data.playlistUrl.split("/playlist/")[1]?.split("?")[0];
 
   // TODO: Error handling
@@ -114,6 +119,7 @@ export async function submitPlaylist(
         message: data.message,
         playlist_id: playlistId,
         name: data.name,
+        background: data.background,
         slug,
       },
     ])
@@ -138,7 +144,7 @@ export async function getMixtape(slug: string): Promise<MixtapeType | null> {
   if (error) return null;
 
   const playlist: Partial<MixtapeType> | State = await getSpotifyPlaylist(
-    data.playlist_id
+    data.playlist_id,
   );
 
   if ((playlist as State)?.type === "error") {
@@ -156,5 +162,6 @@ export async function getMixtape(slug: string): Promise<MixtapeType | null> {
     playlistName: (playlist as MixtapeType).playlistName,
     spotifyUrl: (playlist as MixtapeType).spotifyUrl,
     tracks: (playlist as MixtapeType).tracks,
+    background: data.background,
   };
 }

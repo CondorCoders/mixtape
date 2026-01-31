@@ -58,10 +58,10 @@ export const Mixtape = ({ ...mixtape }: MixtapeType) => {
               open
                 ? "animate-swap"
                 : flip
-                ? "animate-flip-back"
-                : flipBack
-                ? "animate-flip"
-                : "animate-swap-back"
+                  ? "animate-flip-back"
+                  : flipBack
+                    ? "animate-flip"
+                    : "animate-swap-back"
             }`}
             onAnimationEnd={handleAnimationEnd}
             style={{
